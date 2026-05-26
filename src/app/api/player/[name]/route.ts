@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { name: string } }) {
+export async function GET(request: Request, context: { params: Promise<{ name: string }> }) {
+  const params = await context.params;
   const name = params.name;
   
   try {
