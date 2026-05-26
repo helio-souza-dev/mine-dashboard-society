@@ -16,7 +16,7 @@ export default function RootLayout({
       <body>
         <div className="mc-container">
           <header className="mc-header">
-            <h1 className="mc-logo">Hélio's Server</h1>
+            <h1 className="mc-logo">Resenha</h1>
           </header>
           {children}
         </div>
