@@ -18,8 +18,8 @@ export default function PlayerList({ players, isOnline, currentOnline }: { playe
     try {
       // In a real production app, you might want to proxy this through Next.js API
       // to avoid mixed content if the frontend is HTTPS and backend is HTTP.
-      // Assuming for now the VM API is accessible.
-      const res = await fetch(`http://136.116.183.226:8080/player/${name}`);
+      // We are now using a Next.js Route Handler as a proxy!
+      const res = await fetch(`/api/player/${name}`);
       if (res.ok) {
         const data = await res.json();
         setStats(data);
