@@ -7,7 +7,7 @@ type Advancement = { id: string; name: string; unlocked: boolean };
 type PlayerStats = { 
   playtime_minutes: number; 
   mobs_killed: number;
-  distance_km: number;
+  distance_blocks: number;
   jumps: number;
   damage_taken: number;
   recent_crafts: string[];
@@ -93,7 +93,7 @@ export default function PlayerList({ players, isOnline, currentOnline }: { playe
                       </div>
                       <div className="mc-stat-row">
                         <span className="mc-stat-label">Distância Percorrida:</span>
-                        <span className="mc-stat-value">{stats.distance_km} Km</span>
+                        <span className="mc-stat-value">{stats.distance_blocks.toLocaleString('pt-BR')} Blocos</span>
                       </div>
                       <div className="mc-stat-row">
                         <span className="mc-stat-label">Pulos:</span>
@@ -123,7 +123,7 @@ export default function PlayerList({ players, isOnline, currentOnline }: { playe
                   )}
 
                   {activeTab === 'crafts' && (
-                    <div style={{ marginTop: '1rem' }}>
+                    <div style={{ marginTop: '1rem', maxHeight: '300px', overflowY: 'auto', paddingRight: '0.5rem' }}>
                       {stats.recent_crafts.length === 0 ? (
                         <p style={{ color: 'var(--text-secondary)' }}>Nenhum craft registrado ainda.</p>
                       ) : (
