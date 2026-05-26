@@ -1,3 +1,6 @@
+import LogList from '../components/LogList';
+import PlayerList from '../components/PlayerList';
+
 type Player = { name: string; avatar: string };
 type Log = { id: number; player: string; action: string; target: string; type: string; time: string };
 
@@ -55,43 +58,13 @@ export default async function Home() {
         {/* Left Column: Online Players */}
         <section className="mc-panel">
           <h2 className="mc-panel-title">Players Online</h2>
-          
-          <div className="mc-player-list">
-            {!isOnline && <p style={{ color: 'var(--text-secondary)' }}>O servidor está offline.</p>}
-            {isOnline && currentOnline === 0 && (
-              <p style={{ color: 'var(--text-secondary)' }}>Nenhum jogador online no momento.</p>
-            )}
-            {isOnline && currentOnline > 0 && onlinePlayers.length === 0 && (
-              <p style={{ color: 'var(--text-secondary)' }}>Existem {currentOnline} jogadores online! <br/><br/><span style={{fontSize: '0.8rem'}}>(O servidor Forge está escondendo a lista de nomes por padrão)</span></p>
-            )}
-            {onlinePlayers.map((player) => (
-              <div key={player.name} className="mc-player-card">
-                <img src={player.avatar} alt={`${player.name}'s head`} className="mc-player-head" />
-                <span className="mc-font" style={{ fontSize: '0.8rem' }}>{player.name}</span>
-              </div>
-            ))}
-          </div>
+          <PlayerList players={onlinePlayers} isOnline={isOnline} currentOnline={currentOnline} />
         </section>
 
         {/* Right Column: Recent Logs */}
         <section className="mc-panel">
           <h2 className="mc-panel-title">Recent Activity Logs</h2>
-          
-          <div className="mc-log-list">
-            {recentLogs.length === 0 && (
-              <p style={{ color: 'var(--text-secondary)' }}>Nenhum log recente encontrado.</p>
-            )}
-            {recentLogs.map((log) => (
-              <div key={log.id} className={`mc-log-item ${log.type}`}>
-                <div className="mc-log-time">{log.time}</div>
-                <div className="mc-log-content">
-                  <span className="mc-log-player">{log.player}</span>{' '}
-                  <span className="mc-log-action">{log.action}</span>{' '}
-                  <span className="mc-log-target">{log.target}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <LogList logs={recentLogs} />
         </section>
       </div>
     </main>

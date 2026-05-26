@@ -195,3 +195,94 @@ h1, h2, h3, h4, h5, h6, .mc-font {
   50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
+
+.mc-player-card.interactive {
+  cursor: pointer;
+}
+
+.mc-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed var(--border-color);
+}
+
+.mc-button {
+  background: var(--bg-color);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: inset -2px -2px 0px rgba(0,0,0,0.4), inset 2px 2px 0px rgba(255,255,255,0.1);
+}
+
+.mc-button:hover:not(:disabled) {
+  background: var(--mc-green);
+  border-color: var(--mc-green-hover);
+}
+
+.mc-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mc-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+}
+
+.mc-modal {
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.mc-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--mc-red);
+  border-color: #c92a2a;
+}
+
+.mc-modal-close:hover:not(:disabled) {
+  background: #ff6b6b;
+  border-color: #fa5252;
+}
+
+.mc-stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.mc-stat-label {
+  color: var(--text-secondary);
+}
+
+.mc-stat-value {
+  color: var(--mc-accent);
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
