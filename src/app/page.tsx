@@ -5,6 +5,7 @@ export default async function Home() {
   let onlinePlayers: Player[] = [];
   let isOnline = false;
   let maxPlayers = 0;
+  let currentOnline = 0;
   
   // 1. Puxar status do servidor e jogadores online
   try {
@@ -14,6 +15,7 @@ export default async function Home() {
       isOnline = data.online;
       if (data.players) {
         maxPlayers = data.players.max;
+        currentOnline = data.players.online;
         if (data.players.list) {
           onlinePlayers = data.players.list.map((p: any) => ({
             name: p.name,
@@ -44,7 +46,7 @@ export default async function Home() {
         <div className="mc-status" style={{ borderColor: isOnline ? 'var(--mc-green)' : 'var(--mc-red)' }}>
           <div className="mc-status-indicator" style={{ backgroundColor: isOnline ? 'var(--mc-green)' : 'var(--mc-red)' }}></div>
           <span className="mc-status-text">
-            {isOnline ? `Online (${onlinePlayers.length}/${maxPlayers})` : 'Offline'}
+            {isOnline ? `Online (${currentOnline}/${maxPlayers})` : 'Offline'}
           </span>
         </div>
       </div>
@@ -56,8 +58,11 @@ export default async function Home() {
           
           <div className="mc-player-list">
             {!isOnline && <p style={{ color: 'var(--text-secondary)' }}>O servidor está offline.</p>}
-            {isOnline && onlinePlayers.length === 0 && (
+            {isOnline && currentOnline === 0 && (
               <p style={{ color: 'var(--text-secondary)' }}>Nenhum jogador online no momento.</p>
+            )}
+            {isOnline && currentOnline > 0 && onlinePlayers.length === 0 && (
+              <p style={{ color: 'var(--text-secondary)' }}>Existem {currentOnline} jogadores online! <br/><br/><span style={{fontSize: '0.8rem'}}>(O servidor Forge está escondendo a lista de nomes por padrão)</span></p>
             )}
             {onlinePlayers.map((player) => (
               <div key={player.name} className="mc-player-card">
