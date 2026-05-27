@@ -31,24 +31,55 @@ export default function LogList({ logs }: { logs: Log[] }) {
       ))}
       
       {logs.length > logsPerPage && (
-        <div className="mc-pagination">
-          <button 
-            className="mc-button" 
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage(p => p - 1)}
-          >
-            Anterior
-          </button>
-          <span style={{ color: 'var(--text-secondary)' }}>
-            Página {currentPage} de {totalPages}
-          </span>
-          <button 
-            className="mc-button" 
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(p => p + 1)}
-          >
-            Próximo
-          </button>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+          <div className="mc-pagination">
+            <button 
+              className="mc-button" 
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(p => p - 1)}
+            >
+              Anterior
+            </button>
+            <span style={{ color: 'var(--text-secondary)' }}>
+              Página {currentPage} de {totalPages}
+            </span>
+            <button 
+              className="mc-button" 
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(p => p + 1)}
+            >
+              Próximo
+            </button>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Ir para:</span>
+            <input 
+              type="number" 
+              min={1} 
+              max={totalPages}
+              placeholder="#"
+              style={{ 
+                width: '60px', 
+                textAlign: 'center', 
+                padding: '4px', 
+                borderRadius: '4px', 
+                border: '1px solid var(--mc-border)', 
+                background: 'var(--mc-surface-light)', 
+                color: 'var(--text-primary)',
+                fontFamily: 'var(--font-minecraft)'
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  const val = parseInt(e.currentTarget.value);
+                  if (!isNaN(val) && val >= 1 && val <= totalPages) {
+                    setCurrentPage(val);
+                    e.currentTarget.value = '';
+                  }
+                }
+              }}
+            />
+            <span style={{ color: 'var(--text-secondary)', fontSize: '0.7rem' }}>(Aperte Enter)</span>
+          </div>
         </div>
       )}
     </div>
