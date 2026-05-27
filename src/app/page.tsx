@@ -5,12 +5,12 @@ type Player = { name: string; avatar: string };
 type Log = { id: number; player: string; action: string; target: string; type: string; time: string };
 
 export default async function Home() {
-  let onlinePlayers: Player[] = [];
+  let registeredPlayers: Player[] = [];
   let isOnline = false;
   let maxPlayers = 0;
   let currentOnline = 0;
   
-  // 1. Puxar status do servidor e jogadores online
+  // 1. Puxar status do servidor e jogadores online (APENAS CONTADOR)
   try {
     const res = await fetch('https://api.mcsrvstat.us/3/136.116.183.226', { cache: 'no-store' });
     if (res.ok) {
@@ -19,16 +19,20 @@ export default async function Home() {
       if (data.players) {
         maxPlayers = data.players.max;
         currentOnline = data.players.online;
-        if (data.players.list) {
-          onlinePlayers = data.players.list.map((p: any) => ({
-            name: p.name,
-            avatar: `https://minotar.net/helm/${p.name}/40.png`
-          }));
-        }
       }
     }
   } catch (e) {
     console.error("Failed to fetch server status:", e);
+  }
+
+  // 2. Puxar todos os jogadores registrados da nossa API
+  try {
+    const playersRes = await fetch('http://136.116.183.226:8080/players', { cache: 'no-store' });
+    if (playersRes.ok) {
+      registeredPlayers = await playersRes.json();
+    }
+  } catch (e) {
+    console.error("Failed to fetch players:", e);
   }
 
   // 2. Puxar os logs da API na VM
@@ -55,10 +59,10 @@ export default async function Home() {
       </div>
 
       <div className="mc-grid">
-        {/* Left Column: Online Players */}
+        {/* Left Column: Registered Players */}
         <section className="mc-panel">
-          <h2 className="mc-panel-title">Players Online</h2>
-          <PlayerList players={onlinePlayers} isOnline={isOnline} currentOnline={currentOnline} />
+          <h2 className="mc-panel-title">Membros da Sociedade</h2>
+          <PlayerList players={registeredPlayers} isOnline={isOnline} currentOnline={currentOnline} />
         </section>
 
         {/* Right Column: Recent Logs */}

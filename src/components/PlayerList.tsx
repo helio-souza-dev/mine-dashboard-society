@@ -48,8 +48,8 @@ export default function PlayerList({ players, isOnline, currentOnline }: { playe
         {isOnline && currentOnline === 0 && (
           <p style={{ color: 'var(--text-secondary)' }}>Nenhum jogador online no momento.</p>
         )}
-        {isOnline && currentOnline > 0 && players.length === 0 && (
-          <p style={{ color: 'var(--text-secondary)' }}>Existem {currentOnline} jogadores online! <br/><br/><span style={{fontSize: '0.8rem'}}>(O servidor Forge está escondendo a lista de nomes por padrão)</span></p>
+        {players.length === 0 && (
+          <p style={{ color: 'var(--text-secondary)' }}>Nenhum jogador registrado ainda.</p>
         )}
         {players.map((player) => (
           <div key={player.name} className="mc-player-card interactive" onClick={() => openModal(player.name)}>
