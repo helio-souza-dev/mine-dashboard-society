@@ -5,7 +5,7 @@ export async function GET(request: Request, context: { params: Promise<{ name: s
   const name = params.name;
   
   try {
-    const res = await fetch(`http://136.116.183.226:8080/player/${name}`, { cache: 'no-store' });
+    const res = await fetch(`http://34.9.156.212:8080/player/${name}`, { cache: 'no-store' });
     if (!res.ok) {
       return NextResponse.json({ error: 'Failed to fetch from VM' }, { status: res.status });
     }

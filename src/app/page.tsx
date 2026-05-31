@@ -12,7 +12,7 @@ export default async function Home() {
   
   // 1. Puxar status do servidor e jogadores online (APENAS CONTADOR)
   try {
-    const res = await fetch('https://api.mcsrvstat.us/3/136.116.183.226', { cache: 'no-store' });
+    const res = await fetch('https://api.mcsrvstat.us/3/sd-br5.blazebr.com:26088', { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       isOnline = data.online;
@@ -27,7 +27,7 @@ export default async function Home() {
 
   // 2. Puxar todos os jogadores registrados da nossa API
   try {
-    const playersRes = await fetch('http://136.116.183.226:8080/players', { cache: 'no-store' });
+    const playersRes = await fetch('http://34.9.156.212:8080/players', { cache: 'no-store' });
     if (playersRes.ok) {
       registeredPlayers = await playersRes.json();
     }
@@ -38,7 +38,7 @@ export default async function Home() {
   // 2. Puxar os logs da API na VM
   let recentLogs: Log[] = [];
   try {
-    const logsRes = await fetch('http://136.116.183.226:8080/logs', { cache: 'no-store' });
+    const logsRes = await fetch('http://34.9.156.212:8080/logs', { cache: 'no-store' });
     if (logsRes.ok) {
       recentLogs = await logsRes.json();
     }
