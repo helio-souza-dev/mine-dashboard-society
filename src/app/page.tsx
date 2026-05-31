@@ -29,7 +29,8 @@ export default async function Home() {
   try {
     const playersRes = await fetch('http://34.9.156.212:8080/players', { cache: 'no-store' });
     if (playersRes.ok) {
-      registeredPlayers = await playersRes.json();
+      const data = await playersRes.json();
+      if (Array.isArray(data)) registeredPlayers = data;
     }
   } catch (e) {
     console.error("Failed to fetch players:", e);
@@ -40,7 +41,8 @@ export default async function Home() {
   try {
     const logsRes = await fetch('http://34.9.156.212:8080/logs', { cache: 'no-store' });
     if (logsRes.ok) {
-      recentLogs = await logsRes.json();
+      const data = await logsRes.json();
+      if (Array.isArray(data)) recentLogs = data;
     }
   } catch (e) {
     console.error("Failed to fetch logs:", e);
